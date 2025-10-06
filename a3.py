@@ -210,6 +210,15 @@ def title_by_actor(matches: List[str]) -> List[str]:
             result.append(get_title(movie))
     return result
 
+def actor_by_director(matches:List[str]) -> List[str]:
+    director = matches[0]
+    result = []
+    for movie in movie_db:
+        if director in get_director(movie):
+            result.append(get_actors(movie))
+    return result
+
+
 
 # dummy argument is ignored and doesn't matter
 def bye_action(dummy: List[str]) -> None:
