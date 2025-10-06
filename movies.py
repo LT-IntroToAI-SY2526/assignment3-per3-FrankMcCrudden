@@ -435,4 +435,17 @@ movie_db: List[Tuple[str, str, int, List[str]]] = [
             "spike lee",
         ],
     ),
+    (
+        "Beetlejuice",
+        "Tim Burton",
+        1988,
+        [
+            "micheal keaton",
+            "winona ryder",
+            "geena davis",
+            "alec baldwin",
+            "jeffrey jones",
+            "catherine o'hara",
+        ],
+    )
 ]

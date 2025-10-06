@@ -15,11 +15,12 @@ This assignment completes our movie chatbot system by implementing action functi
 ## Reflection Questions
 
 1. What are some key programming concepts or techniques that you learned while completing this assignment?
-
+I learned how for loops properly work, and pulling form lists work.
 
 
 2. How does the overall movie chatbot system work? Explain the flow from when a user types a query to when they receive an answer.
-
+When the user types in a statement, that chat bpt will look if the statement that the user typed in matches with what the chatbot will respond with. If so the chatbot will pull form what the user said at specific index numbers and then will look through the list it was given. Depending on what the user asked, the chatbot eill then respond with an answer from the provided list it has.
 
 
 3. What are some real-world applications where this type of pattern-matching chatbot system could be useful? How might you extend or improve this system for practical use?
+It can be used in other search related inqueries where someone has a question and need an immediate answer, similar to search engines like google. This chatbot system can be improved on by adding a bigger list, or expanding that number of differeing questions the user can ask to get similar results from the chatbot.
