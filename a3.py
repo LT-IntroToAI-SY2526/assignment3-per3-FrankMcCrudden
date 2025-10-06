@@ -54,7 +54,7 @@ def title_by_year(matches: List[str]) -> List[str]:
     Returns:
         a list of movie titles made in the passed in year
     """
-    year = int(match[0])
+    year = int(matches[0])
     result = []
     for movie in movie_db:
         if get_year(movie) == year:
@@ -74,15 +74,14 @@ def title_by_year_range(matches: List[str]) -> List[str]:
         a list of movie titles made during those years, inclusive (meaning if you pass
         in ["1991", "1994"] you will get movies made in 1991, 1992, 1993 & 1994)
     """
-    result = []
+    
     start_year = int(matches[0])
     end_year = int(matches[1])
-
+    result = []
     for movie in movie_db:
-        movie_year = get_year(movie)
-        if start_year <= movie_year <= end_year:
+        if start_year <= get_year(movie) <= end_year:
             result.append(get_title(movie))
-        return result
+    return result
 
 
 
@@ -97,12 +96,12 @@ def title_before_year(matches: List[str]) -> List[str]:
         a list of movie titles made before the passed in year, exclusive (meaning if you
         pass in 1992 you won't get any movies made that year, only before)
     """
+    
+    year = int(matches[0])
     result = []
-    title = matches[0]
-
     for movie in movie_db:
-        if get_title(movie) == title:
-            result.append(get_director(movie))
+        if get_year(movie) < year:
+            result.append(get_title(movie))
     return result
 
 
@@ -203,14 +202,13 @@ def title_by_actor(matches: List[str]) -> List[str]:
     Returns:
         a list of movie titles that the actor acted in
     """
+    
+    actor = matches[0]
     result = []
-    actor_name = matches[0]
     for movie in movie_db:
-        actors = get_actors(movie)
-        for actor in actors:
-            if actor_name in actor:
-                result.append(get_title(movie))
-                break
+        if actor in get_actors(movie):
+            result.append(get_title(movie))
+    return result
 
 
 # dummy argument is ignored and doesn't matter
@@ -233,6 +231,7 @@ pa_list: List[Tuple[List[str], Callable[[List[str]], List[Any]]]] = [
     (str.split("who acted in %"), actors_by_title),
     (str.split("when was % made"), year_by_title),
     (str.split("in what movies did % appear"), title_by_actor),
+    (str.split("in what year was % made"), year_by_title),
     (["bye"], bye_action),
 ]
 
@@ -249,8 +248,16 @@ def search_pa_list(src: List[str]) -> List[str]:
         a list of answers. Will be ["I don't understand"] if it finds no matches and
         ["No answers"] if it finds a match but no answers
     """
-    pass
+    for pat, act, in pa_list:
+        print(f"pattern: {pat}, source: {src}, action: {act}")
+        mat = match(pat, src)
+        print(f"match: {mat}")
 
+        if mat is not None:
+            ans = act(mat)
+            print(f"answer: {ans}")
+            return ans if ans else ["No ansers"]
+    return("I don't understand")
 
 def query_loop() -> None:
     """The simple query loop. The try/except structure is to catch Ctrl-C or Ctrl-D
